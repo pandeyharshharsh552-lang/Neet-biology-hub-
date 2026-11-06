@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b32">
+<title>NEET Biology Hub</title>
+<style>
+:root{--green:#123b32;--mint:#dff5e9;--lime:#b9ef83;--ink:#17231f;--muted:#64736d;--paper:#f6faf7;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:linear-gradient(135deg,#123b32,#216b50);color:white;padding:30px 20px 28px;border-radius:0 0 28px 28px}
+.wrap{max-width:760px;margin:auto;padding:0 16px}header .tag{font-size:12px;letter-spacing:1.5px;color:#c9f2d7;font-weight:700}
+h1{font-size:30px;line-height:1.1;margin:10px 0}header p{color:#e1f3e8;margin:8px 0 0}
+.pill{display:inline-block;background:#ffffff20;padding:7px 11px;border-radius:30px;font-size:12px;margin-top:16px}
+main{padding:20px 0 42px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:-2px}
+.stat,.panel,.tile{background:white;border:1px solid #e5eee8;border-radius:17px;padding:15px;box-shadow:0 5px 18px #173e2b08}
+.stat strong{display:block;font-size:20px;color:var(--green)}.stat span{font-size:11px;color:var(--muted)}
+h2{font-size:19px;margin:25px 2px 12px}.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{min-height:112px;text-align:left;color:var(--ink);cursor:pointer}.tile b{display:block;margin:8px 0 3px}.tile small{color:var(--muted)}
+.tile .emoji{font-size:23px}.panel{margin-top:16px}
+button{font:inherit}.primary{background:var(--green);color:white;border:0;padding:12px 17px;border-radius:12px;font-weight:700;cursor:pointer}
+.secondary{background:var(--mint);color:var(--green);border:0;padding:10px 13px;border-radius:11px;font-weight:650;cursor:pointer}
+#quiz{display:none}.qtop{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+#question{font-size:18px;font-weight:750;line-height:1.4;margin:16px 0}
+.option{display:block;width:100%;text-align:left;background:#fff;border:1px solid #dce8e0;padding:13px;border-radius:12px;margin:9px 0;cursor:pointer}
+.option:disabled{cursor:default}.option.correct{border-color:#219653;background:#e7f8ed}.option.wrong{border-color:#d64c4c;background:#fff0f0}
+#feedback{font-size:14px;color:var(--muted);min-height:22px;margin:12px 0}
+.note{line-height:1.55;color:#41524a;font-size:14px}.muted{color:var(--muted);font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(min-width:600px){h1{font-size:38px}.tiles{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="tag">STUDY SMART • AIM NEET</div>
+<h1>NEET Biology Hub 🧬</h1>
+<p>Daily practice. Clear concepts. Better revision.</p>
+<div class="pill">Made for NEET Biology aspirants</div>
+</div></header>
+<main class="wrap">
+<div class="stats">
+<div class="stat"><strong>10</strong><span>Practice MCQs</span></div>
+<div class="stat"><strong>NCERT</strong><span>Focused learning</span></div>
+<div class="stat"><strong>₹0</strong><span>Free to use</span></div>
+</div>
+<section id="home">
+<h2>What do you want to study?</h2>
+<div class="tiles">
+<button class="tile" onclick="startQuiz()"><span class="emoji">📝</span><b>Daily Biology Quiz</b><small>Test your preparation</small></button>
+<button class="tile" onclick="showNotes()"><span class="emoji">📚</span><b>Quick Notes</b><small>Revise key concepts</small></button>
+<button class="tile" onclick="startQuiz()"><span class="emoji">🎯</span><b>NEET MCQs</b><small>Practice questions</small></button>
+<button class="tile" onclick="showProgress()"><span class="emoji">🏆</span><b>Your Score</b><small>Track this session</small></button>
+</div>
+<div class="panel"><b>🌱 Today's study reminder</b><p class="note">Read the NCERT line carefully, understand the concept, then solve MCQs. Consistent revision beats last-minute cramming.</p></div>
+</section>
+<section id="quiz" class="panel">
+<div class="qtop"><span id="counter">Question 1 of 10</span><span id="scorelive">Score: 0</span></div>
+<div id="question"></div><div id="options"></div><div id="feedback"></div>
+<button class="primary" id="next" onclick="nextQuestion()" style="display:none">Next question</button>
+<button class="secondary" onclick="goHome()">Back to home</button>
+</section>
+<section id="notes" class="panel" style="display:none">
+<h2 style="margin-top:0">Quick Biology Revision</h2>
+<p class="note"><b>Cell theory:</b> All living organisms are composed of cells; the cell is the basic structural and functional unit of life. New cells arise from pre-existing cells.</p>
+<p class="note"><b>Enzymes:</b> Most enzymes are proteins that act as biological catalysts. They lower activation energy and are not consumed in the reaction.</p>
+<p class="note"><b>Photosynthesis:</b> In green plants, light reactions occur in thylakoid membranes; the Calvin cycle occurs in the stroma of chloroplasts.</p>
+<p class="muted">Use your NCERT textbook as the final reference for exam preparation.</p>
+<button class="secondary" onclick="goHome()">Back to home</button>
+</section>
+<section id="progress" class="panel" style="display:none">
+<h2 style="margin-top:0">Your quiz score</h2><p id="scoretext" class="note">You have not completed a quiz yet.</p>
+<button class="primary" onclick="startQuiz()">Try quiz again</button> <button class="secondary" onclick="goHome()">Back</button>
+</section>
+</main>
+<footer>NEET Biology Hub • Independent learning project • Verify concepts with NCERT</footer>
+<script>
+const questions=[
+{q:"The basic structural and functional unit of life is:",o:["Tissue","Cell","Organ","Organelle"],a:1,e:"The cell is the basic structural and functional unit of all living organisms."},
+{q:"Which organelle is called the powerhouse of the cell?",o:["Ribosome","Golgi apparatus","Mitochondrion","Lysosome"],a:2,e:"Mitochondria produce most of the ATP during aerobic cellular respiration."},
+{q:"The site of light reaction in photosynthesis is:",o:["Stroma","Thylakoid membrane","Cytoplasm","Nucleus"],a:1,e:"Light-dependent reactions take place on the thylakoid membranes."},
+{q:"Which molecule carries genetic information in most organisms?",o:["ATP","DNA","Glucose","Lipid"],a:1,e:"DNA is the hereditary material in most organisms."},
+{q:"The functional unit of the kidney is:",o:["Neuron","Alveolus","Nephron","Villus"],a:2,e:"The nephron performs filtration and the processes involved in urine formation."},
+{q:"Which blood cells help in clotting?",o:["RBCs","Platelets","Lymphocytes","Neurons"],a:1,e:"Platelets (thrombocytes) help initiate blood clotting."},
+{q:"Pollination is the transfer of pollen grains from:",o:["Stigma to ovary","Anther to stigma","Ovary to anther","Petal to sepal"],a:1,e:"Pollination is the transfer of pollen grains from anther to stigma."},
+{q:"Which plant hormone is commonly associated with cell elongation?",o:["Auxin","Abscisic acid","Ethylene","Cytokinin"],a:0,e:"Auxins promote cell elongation in many plant tissues."},
+{q:"The number of chromosomes in a normal human somatic cell is:",o:["23","44","46","48"],a:2,e:"Human somatic cells typically contain 46 chromosomes (23 pairs)."},
+{q:"Which ecological pyramid is always upright?",o:["Pyramid of biomass","Pyramid of numbers","Pyramid of energy","All pyramids"],a:2,e:"The pyramid of energy is always upright because energy decreases at each trophic level."}
+];
+let index=0,score=0,answered=false,lastScore=null;
+function hideAll(){["home","quiz","notes","progress"].forEach(id=>document.getElementById(id).style.display="none")}
+function goHome(){hideAll();document.getElementById("home").style.display="block"}
+function startQuiz(){index=0;score=0;hideAll();document.getElementById("quiz").style.display="block";render()}
+function render(){answered=false;let q=questions[index];document.getElementById("counter").textContent=`Question ${index+1} of ${questions.length}`;document.getElementById("scorelive").textContent=`Score: ${score}`;document.getElementById("question").textContent=q.q;document.getElementById("feedback").textContent="";document.getElementById("next").style.display="none";let box=document.getElementById("options");box.innerHTML="";q.o.forEach((v,i)=>{let b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+v;b.onclick=()=>choose(i);box.appendChild(b)})}
+function choose(i){if(answered)return;answered=true;let q=questions[index],buttons=[...document.querySelectorAll(".option")];buttons.forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add("correct");if(j===i&&i!==q.a)b.classList.add("wrong")});if(i===q.a)score++;document.getElementById("scorelive").textContent=`Score: ${score}`;document.getElementById("feedback").textContent=(i===q.a?"Correct! ":"Not quite. ")+q.e;document.getElementById("next").textContent=index===questions.length-1?"See result":"Next question";document.getElementById("next").style.display="inline-block"}
+function nextQuestion(){if(!answered)return;if(index<questions.length-1){index++;render()}else{lastScore=score;hideAll();document.getElementById("progress").style.display="block";document.getElementById("scoretext").textContent=`You scored ${score} out of ${questions.length} (${Math.round(score/questions.length*100)}%). Review the explanations and try again.`}}
+function showNotes(){hideAll();document.getElementById("notes").style.display="block"}
+function showProgress(){hideAll();document.getElementById("progress").style.display="block";document.getElementById("scoretext").textContent=lastScore===null?"You have not completed a quiz yet.":`Your last score: ${lastScore} out of ${questions.length}.`}
+</script>
+</body></html>
